@@ -1,0 +1,15 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+    <h1><strong>Список блюд</strong></h1>
+    <div class="list-group">
+    {% if dish_list %}
+        <ul>
+            {% for dish in dish_list %}
+                <a class="list-group-item list-group-item-action" href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+{% endblock %}

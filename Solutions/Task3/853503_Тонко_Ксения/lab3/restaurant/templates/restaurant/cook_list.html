@@ -1,0 +1,19 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <h1><strong>Наши повара</strong></h1>
+    <a class="btn btn-primary" href="{% url 'cook-form' %}">Добавить</a>
+<div class="list-group">
+{% if cook_list %}
+    <ul>
+        {% for cook in cook_list %}
+                <a class="list-group-item list-group-item-action" href="{{ cook.get_absolute_url }}">
+                    {{ cook.first_name }} {{ cook.last_name }}
+                </a>
+        {% endfor %}
+    </ul>
+{% endif %}
+</div>
+{% endblock %}

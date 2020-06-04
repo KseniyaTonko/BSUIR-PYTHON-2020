@@ -1,0 +1,31 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'cooks' %}">
+        Назад
+    </a>
+    <a class="btn btn-success" href="{% url 'cook_edit' cook.pk %}">
+        Изменить
+    </a>
+    <a class="btn btn-outline-danger" href="{% url 'cook-delete' cook.pk %}">
+        Удалить
+    </a>
+    <a class="card" style="width: 50rem;">
+        {% if cook.photo %}
+            <img src="{{ cook.photo.url }}"/>
+        {% endif %}
+        <h1 class="card-title">{{ cook.first_name }} {{ cook.last_name }}</h1>
+        <p class="card-subtitle"><strong>{{ cook.position }}</strong></p>
+        <p><strong>Начало работы: </strong>{{ cook.date }}</p>
+    </a>
+    <br>
+    <a class="card card-body" style="width: 50rem;">
+    <p class="card-title"><strong>Список блюд</strong></p>
+            {% for dish in cook.dishes.all %}
+                <a class="list-group-item list-group-item-action" href="{{ dish.get_absolute_url }}" style="width: 50rem;">
+                    {{ dish.name}}
+                </a>
+            {% endfor %}
+    </a>
+{% endblock %}

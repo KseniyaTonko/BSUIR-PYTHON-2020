@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ресторан</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body style="background: #fcf8e3">
+    <div class="jumbotron" style="background: #95999c">
+        <div class="container" style="background: #95999c ">
+            <p>
+                <a href="/" class="btn btn-primary btn-lg" style="background: #721c24">Главная страница</a>
+                <a href="{% url 'cooks' %}" class="btn btn-primary btn-lg" style="background: #721c24">Повара</a>
+                <a href="{% url 'dishes' %}" class="btn btn-primary btn-lg" style="background: #721c24">Меню</a>
+                <a href="{% url 'events' %}" class="btn btn-primary btn-lg" style="background: #721c24">События
+                &raquo;</a>
+                <a href="{% url 'stocks' %}" class="btn btn-primary btn-lg" style="background: #721c24">Акции</a>
+                <a href="{% url 'contacts' %}" class="btn btn-primary btn-lg" style="background: #721c24">Контакты</a>
+                {% if user.is_authenticated %}
+                    <li>Пользователь: {{ user.get_username }}</li>
+                    <li><a href="{% url 'logout'%}?next={{request.path}}">Выйти</a></li>
+                {% else %}
+                    <li><a href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+        {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая страница</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        <hr>
+    &copy; Все права защищены. 2020
+    </div>
+</body>
+</html>

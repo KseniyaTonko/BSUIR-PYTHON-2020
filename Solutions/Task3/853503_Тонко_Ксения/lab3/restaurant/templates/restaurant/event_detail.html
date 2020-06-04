@@ -1,0 +1,13 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="card card-body" style="width: 50rem;">
+        <p class="card-title"><strong>{{ event.title }}</strong></p>
+        {% if event.photo %}
+            <img src="{{ event.photo.url }}" width="500" height="300"/>
+        {% endif %}
+        <p class="card-text">{{ event.text }}</p>
+        <p class="card-subtitle">{{ event.date }}</p>
+    </div>
+{% endblock %}

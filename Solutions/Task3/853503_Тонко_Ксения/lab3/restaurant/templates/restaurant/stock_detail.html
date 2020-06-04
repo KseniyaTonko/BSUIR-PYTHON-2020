@@ -1,0 +1,11 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+    <h1><strong>{{ stock.name }}</strong></h1>
+    <div class="card-body">
+        <blockquote>{{ stock.info}}</blockquote>
+        <p><strong>Время проведения:</strong></p>
+        <p>{{ stock.start_date }} - {{ stock.finish_date }}</p>
+    </div>
+{% endblock %}
