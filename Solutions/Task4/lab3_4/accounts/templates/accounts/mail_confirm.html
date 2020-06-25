@@ -1,0 +1,6 @@
+{% autoescape off %}
+    Здравствуйте, {{ user.username }},
+    Перейдите по ссылке для подтверждения адреса электронной почты,
+    {{ protocol }}://{{ domain }}{% url 'accounts:activation' uidb64=uid token=token %}
+    Если вы не регистрировались на сайте, проигнорируйте это письмо.
+{% endautoescape %}

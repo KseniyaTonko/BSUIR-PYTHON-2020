@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ресторан</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body style="background: #8fd19e">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Ресторан</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a href="/" class="nav-link">Главная страница</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{% url 'cooks' %}" class="nav-link">Повара</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{% url 'dishes' %}" class="nav-link">Меню</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{% url 'events' %}" class="nav-link">События</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{% url 'stocks' %}" class="nav-link">Акции</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{% url 'contacts' %}" class="nav-link">Контакты</a>
+            </li>
+        </ul>
+            {% if user.is_authenticated %}
+                <div class="navbar-text mr-3">{{ user.get_username }}</div>
+                <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %}
+                        <button class="btn btn-outline-info">
+                            Выйти
+                        </button>
+                </form>
+            {% else %}
+                <form class="login-link" action="{% url 'accounts:login' %}" method="post">
+                    {% csrf_token %}
+                        <button class="btn btn-info">
+                            Войти
+                        </button>
+                </form>
+            {% endif %}
+    </div>
+</nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+        {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая страница</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        <hr>
+    &copy; Все права защищены. 2020
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+<h1><strong>Акции</strong></h1>
+{% if stock_list %}
+    <ul>
+        {% for stock in stock_list %}
+            <li>
+                <a href="{{ stock.get_absolute_url }}">{{ stock.name }}</a>
+                <br><br>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+        <p>Акций пока нет. Зайдите позже.</p>
+{% endif %}
+{% endblock %}

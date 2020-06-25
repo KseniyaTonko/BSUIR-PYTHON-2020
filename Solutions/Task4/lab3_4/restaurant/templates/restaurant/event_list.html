@@ -1,0 +1,21 @@
+{% extends "restaurant/wrapper.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+<h1><strong>События</strong></h1>
+{% if event_list %}
+    <ul>
+        {% for event in event_list %}
+            <li>
+                <img src="{{ event.photo.url }}" width="400" height="250"/><br>
+                <a href="{{ event.get_absolute_url }}">{{ event.title }}</a><br>
+                <h6>{{ event.date }}</h6>
+                <br><br>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Событий пока нет. Зайдите позже.</p>
+{% endif %}
+{% endblock %}

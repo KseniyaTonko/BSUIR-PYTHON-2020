@@ -1,0 +1,14 @@
+{% extends 'restaurant/wrapper.html' %}
+
+{% block content %}
+    <form class="site-from" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="Войти">
+        <p>Ещё нет аккаунта?</p>
+        <a href="{% url 'accounts:signup' %}">Зарегистрироваться</a>
+    </form>
+{% endblock %}
